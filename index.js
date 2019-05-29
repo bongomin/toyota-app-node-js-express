@@ -19,6 +19,13 @@ app.use('/css', express.static('/templates/css'));
 app.use('/js', express.static('/templates/js'));
 app.use(parser.urlencoded({ extended: false }));
 
+
+app.use(session({
+	secret: 'secret',
+	resave: true,
+	saveUninitialized: true
+}));
+
 // creating database connection
 
 var dbConnection = mysql.createConnection({
@@ -38,13 +45,15 @@ dbConnection.connect(err => {
   console.log('connection to the database succeded')
 });
 
-app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "/templates/index.html"));
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname + '/templates/index.html'))
 });
 
-app.get('/login', (req, res) => {
-  res.sendFile(path.join(__dirname + '/templates/login.html'))
+app.get("/home", (req, res) => {
+  res.sendFile(path.join(__dirname, "/templates/home.html"));
 });
+
+
 
 app.get('/register', (req, res) => {
   res.sendFile(path.join(__dirname + '/templates/register.html'))
@@ -98,8 +107,10 @@ app.post("/register", (req, res) => {
         return
       }
 
+      res.redirect('/');
+
     }
-  );
+  );                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
 });
 
 // handling post request from the login form
@@ -115,8 +126,8 @@ app.post('/login', function (req, res) {
       // checking if the two data are available in the database table accounts
       if (results.length > 0) {
         req.session.loggedin = true;
-        req.email.session = email;
-        res.redirect('/');
+        req.session.email = email;
+        res.redirect('/home');
       } else {
         res.send('incorrect Credentials try again');
       }
@@ -129,8 +140,18 @@ app.post('/login', function (req, res) {
   }
 });
 
+app.get('/', (req,res)=>{
+  if(req.session.loggedin){
+    res.sendFile(path.join(__dirname, '/templates/login.html'))
+  }
+  else{
+    console.log('please log in')
+  }
+  res.end();
+})
+
 // declaring a port on which to run the app
-var PORT = process.env.PORT || 8002;
+var PORT = process.env.PORT || 8000;
 
 // Binding to the Port
 app.listen(PORT, () => {

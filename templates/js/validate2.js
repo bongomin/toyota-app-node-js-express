@@ -56,9 +56,9 @@ function validate() {
     cost = amount;
     // Calculating the sales tax for Kampala, Mbarara, Entebbe and other towns
     if (state.value === "KLA") {
-      tax = this.cost * 0.1;
+      tax = cost * 0.1;
     } else if (state.value === "EBB" || state.value === "MBR") {
-      tax = this.cost * 0.05;
+      tax = cost * 0.05;
     } else {
       tax = 0.0;
     }
