@@ -21,9 +21,9 @@ app.use(parser.urlencoded({ extended: false }));
 
 
 app.use(session({
-	secret: 'secret',
-	resave: true,
-	saveUninitialized: true
+  secret: 'secret',
+  resave: true,
+  saveUninitialized: true
 }));
 
 // creating database connection
@@ -84,8 +84,8 @@ app.post('/toyota_app', (req, res) => {
         console.log("an error has occured " + err);
         res.status(500);
       }
-      res.redirect("/");
-      res.end();
+      //res.redirect("/home");
+      //res.end();
     });
 });
 
@@ -110,7 +110,7 @@ app.post("/register", (req, res) => {
       res.redirect('/');
 
     }
-  );                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
+  );
 });
 
 // handling post request from the login form
@@ -140,11 +140,11 @@ app.post('/login', function (req, res) {
   }
 });
 
-app.get('/', (req,res)=>{
-  if(req.session.loggedin){
+app.get('/', (req, res) => {
+  if (req.session.loggedin) {
     res.sendFile(path.join(__dirname, '/templates/login.html'))
   }
-  else{
+  else {
     console.log('please log in')
   }
   res.end();
