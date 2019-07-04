@@ -53,14 +53,14 @@
                 <label class="col-sm-3 col-form-label" for="customerId">Customer Id</label>
                 <div class="col-sm-9">
                   <input class="form-control" id="customerId" name="customerId" placeholder="2323-45-6789"
-                    type="text" />
+                    type="text"  required>
                   <span id="customerId_err"></span>
                 </div>
               </div>
               <div class="form-group row">
                 <label class="col-sm-3 col-form-label" for="name">Name</label>
                 <div class="col-sm-9">
-                  <input class="form-control" id="name" name="name" placeholder="Name" type="text" />
+                  <input class="form-control" id="name" name="name" placeholder="Name" type="text" required />
                   <span id="name_err"></span>
                 </div>
               </div>
@@ -73,7 +73,7 @@
                         <div class="col-sm-9">
                           <input class="form-control" id="state" name="state"
                             oninput="this.value=this.value.toUpperCase()" maxlength="3" placeholder="Town / State"
-                            type="text" />
+                            type="text" required />
                           <span id="state_err"></span>
                         </div>
                       </div>
